@@ -4,10 +4,10 @@ import { Jumbotron, Grid, Row } from 'react-bootstrap';
 class ResultPage extends React.Component {
     render() {
         return ( 
-            <div className="ResultPage">
+            <div className="LoginPage">
                 <Jumbotron>
                     <Grid>
-                        <h1> Reault </h1> 
+                        <h1> Login/Signup </h1> 
                     </Grid> 
                 </Jumbotron> 
                 <Grid>
@@ -19,4 +19,4 @@ class ResultPage extends React.Component {
     }
 }
 
-export default ResultPage;
+export default LoginPage;
