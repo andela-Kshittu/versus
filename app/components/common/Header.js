@@ -1,6 +1,6 @@
 import React from 'react';
 import {IndexLink} from 'react-router';
-import {LinkContainer, IndexLinkContainer} from 'react-router-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap';
 import {Navbar, Nav, NavItem} from 'react-bootstrap';
 
 class Header extends React.Component {
