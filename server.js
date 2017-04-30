@@ -6,6 +6,8 @@ const open = require('open');
 const path = require('path');
 const webpack = require('webpack');
 
+// authUserToken = require('./src/auth-user'),
+
 // Other variables
 const app = express();
 const compiler = webpack(config);
@@ -27,7 +29,7 @@ if (PROD) {
 app.use(express.static(baseDir));
 
 // API routes
-
+// app.use('/auth', auth);
 
 // Client routes
 app.get('*', (req, res) => {
