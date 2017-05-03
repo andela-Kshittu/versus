@@ -12,12 +12,12 @@ var isAuthenticated = function(req, res, next) {
 }
 
 module.exports = function(passport) {
-  //FIX ME : For testing redirect on success auth, should never make it to production
+  //FIX ME : For testing redirect on auth success
   router.get('/success', isAuthenticated, function(req, res) {
     res.send({ user: req.user });
   });
 
-  //FIX ME : For testing redirect on success auth, should never make it to production
+  //FIX ME : For testing redirect on auth failure
   router.get('/failure', function(req, res) {
     res.status(req.flash('status')).send(req.flash('message'));
   });

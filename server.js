@@ -1,19 +1,19 @@
 // Imports
 const compression = require('compression');
-const wpConfig = require('./webpack.config');
-const express = require('express');
 const open = require('open');
 const path = require('path');
 const webpack = require('webpack');
+const wpConfig = require('./webpack.config');
 
 //sever imports
+const bodyParser = require('body-parser');
 const config = require('./config/config');
+const cookieParser = require('cookie-parser');
+const express = require('express');
+const expressSession = require('express-session');
+const logger = require('morgan');
 const mongoose = require('mongoose');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var logger = require('morgan');
-var passport = require('passport');
-var expressSession = require('express-session');
+const passport = require('passport');
 
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
@@ -39,14 +39,12 @@ if (PROD) {
 app.use(express.static(baseDir));
 
 // API
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-// TODO - Why Do we need this key ?
-app.use(expressSession({ secret: 'mySecretKey' }));
+app.use(expressSession({ secret: process.env.SESSION_SECRET }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -62,7 +60,7 @@ app.use(require('connect-flash')());
 app.use('/api/auth', require('./routes/authentication')(passport));
 app.use('/api', require('./routes/api')(passport));
 
-/// catch 404 and forward to error handler
+// catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
