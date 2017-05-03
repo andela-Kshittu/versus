@@ -18,6 +18,8 @@ const passport = require('passport');
 mongoose.connect(process.env.MONGODB_URI);
 mongoose.Promise = global.Promise;
 
+// authUserToken = require('./src/auth-user'),
+
 // Other variables
 const app = express();
 const compiler = webpack(wpConfig);
@@ -35,7 +37,7 @@ if (PROD) {
   }));
   app.use(require('webpack-hot-middleware')(compiler));
 }
-// 
+
 app.use(express.static(baseDir));
 
 // API
