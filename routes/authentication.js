@@ -17,12 +17,19 @@ module.exports = function(passport){
 		failureFlash : true
 	}));
 
-	router.get('/facebook', passport.authenticate('facebook', {scope: 'public_profile,email'}));
+	router.get('/facebook', passport.authenticate('facebook', {scope: 'public_profile, email'}));
 
 	router.get('/facebook/callback', passport.authenticate('facebook', { 
 	  	successRedirect: '/api/home',
 	  	failureRedirect: '/' 
 	  }));
+
+	router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+
+	router.get('/google/callback', passport.authenticate('google', { 
+		successRedirect: '/api/home', 
+		failureRedirect: '/' 
+	}));
 
 
 	/* Handle Logout */

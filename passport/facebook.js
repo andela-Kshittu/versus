@@ -1,6 +1,5 @@
 var FacebookStrategy   = require('passport-facebook').Strategy;
 var {User} = require('../models/user');
-var bCrypt = require('bcrypt-nodejs');
 
 module.exports = function(passport){
 
@@ -47,11 +46,5 @@ module.exports = function(passport){
 	    	}
 	    });
 	  }
-	));
-
-
-    var isValidPassword = function(user, password){
-        return bCrypt.compareSync(password, user.password);
-    }
-    
+	));   
 }

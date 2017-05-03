@@ -1,10 +1,11 @@
 var login = require('./login');
 var signup = require('./signup');
-var facebook = require('./facebook')
+var facebook = require('./facebook');
+var google = require('./google');
 
 var {User} = require('../models/user');
 
-module.exports = function(passport){
+module.exports = function(passport) {
 
 	// Passport needs to be able to serialize and deserialize users to support persistent login sessions
     passport.serializeUser(function(user, done) {
@@ -23,5 +24,5 @@ module.exports = function(passport){
     login(passport);
     signup(passport);
     facebook(passport);
-
+    google(passport);
 }
