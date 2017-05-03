@@ -27,28 +27,26 @@ const baseDir = PROD ? 'build' : 'dist';
 
 // Middleware
 if (PROD) {
-    app.use(compression());
+  app.use(compression());
 } else {
-    app.use(require('webpack-dev-middleware')(compiler, {
-        noInfo: true,
-        publicPath: wpConfig.output.publicPath
-    }));
-    app.use(require('webpack-hot-middleware')(compiler));
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true,
+    publicPath: wpConfig.output.publicPath
+  }));
+  app.use(require('webpack-hot-middleware')(compiler));
 }
 // 
 app.use(express.static(baseDir));
-// app.set('views', path.join(__dirname, './', baseDir,'views'));
-// app.set('view engine', 'html');
 
 // API
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // TODO - Why Do we need this key ?
-app.use(expressSession({secret: 'mySecretKey'}));
+app.use(expressSession({ secret: 'mySecretKey' }));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -66,28 +64,24 @@ app.use('/api', require('./routes/api')(passport));
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
-    var err = new Error('Not Found');
-    err.status = 404;
-    next(err);
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
 
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-    app.use(function(err, req, res, next) {
-        res.status(err.status || 500).send(err.message);
-        // res.render('error', {
-        //     message: err.message,
-        //     error: err
-        // });
-    });
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500).send(err.message);
+  });
 }
 
 // Client routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './', baseDir, '/index.html'));
+  res.sendFile(path.join(__dirname, './', baseDir, '/index.html'));
 });
 
 app.listen(port, () => {
-    open(`http://localhost:${port}`);
+  open(`http://localhost:${port}`);
 });

@@ -18,8 +18,8 @@ module.exports = function(passport) {
   });
 
   //FIX ME : For testing redirect on success auth, should never make it to production
-  router.get('/failure', function(err, req, res) {
-    res.send(err);
+  router.get('/failure', function(req, res) {
+    res.status(req.flash('status')).send(req.flash('message'));
   });
 
   return router;

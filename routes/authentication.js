@@ -6,14 +6,14 @@ module.exports = function(passport) {
   /* Handle Login POST */
   router.post('/login', passport.authenticate('login', {
     successRedirect: '/api/success',
-    failureRedirect: '/',
+    failureRedirect: '/api/failure',
     failureFlash: true
   }));
 
   /* Handle Registration POST */
   router.post('/signup', passport.authenticate('signup', {
     successRedirect: '/api/success',
-    failureRedirect: '/',
+    failureRedirect: '/api/failure',
     failureFlash: true
   }));
 
@@ -23,7 +23,7 @@ module.exports = function(passport) {
   /* Facebook login callback url */
   router.get('/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/api/success',
-    failureRedirect: '/'
+    failureRedirect: '/api/failure'
   }));
 
   /* Handle Google login */
@@ -32,7 +32,7 @@ module.exports = function(passport) {
   /* Google login callback url */
   router.get('/google/callback', passport.authenticate('google', {
     successRedirect: '/api/success',
-    failureRedirect: '/'
+    failureRedirect: '/api/failure'
   }));
 
   /* Handle Logout */

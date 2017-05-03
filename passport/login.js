@@ -16,17 +16,19 @@ module.exports = function(passport) {
           // In case of any error, return using the done method
           if (err)
             return done(err);
-          // Username does not exist, log the error and redirect back
+          // Email does not exist, log the error to failure page
           if (!user) {
             console.log('User Not Found with email ' + email);
-            // req.message('message', 'User Not found.')
+            req.flash('status', 404);
+            req.message('message', 'User Not found.')
             return done(null, false);
           }
           // User exists but wrong password, log the error 
           if (!isValidPassword(user, password)) {
             console.log('Invalid Password');
-            //req.flash('message', 'Invalid Password')
-            return done(null, false); // redirect back to login page
+            req.flash('status', 401);
+            req.flash('message', 'Invalid Password')
+            return done(null, false); // redirect to failure page
           }
           // User and password both match, return user from done method
           // which will be treated like success
