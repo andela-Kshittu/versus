@@ -1,41 +1,44 @@
 var express = require('express');
 var router = express.Router();
 
-module.exports = function(passport){
+module.exports = function(passport) {
 
-	/* Handle Login POST */
-	router.post('/login', passport.authenticate('login', {
-		successRedirect: '/api/home',
-		failureRedirect: '/',
-		failureFlash : true  
-	}));
+  /* Handle Login POST */
+  router.post('/login', passport.authenticate('login', {
+    successRedirect: '/api/success',
+    failureRedirect: '/',
+    failureFlash: true
+  }));
 
-	/* Handle Registration POST */
-	router.post('/signup', passport.authenticate('signup', {
-		successRedirect: '/api/home',
-		failureRedirect: '/',
-		failureFlash : true
-	}));
+  /* Handle Registration POST */
+  router.post('/signup', passport.authenticate('signup', {
+    successRedirect: '/api/success',
+    failureRedirect: '/',
+    failureFlash: true
+  }));
 
-	router.get('/facebook', passport.authenticate('facebook', {scope: 'public_profile, email'}));
+  /* Handle Facebook login */
+  router.get('/facebook', passport.authenticate('facebook', { scope: 'public_profile, email' }));
 
-	router.get('/facebook/callback', passport.authenticate('facebook', { 
-	  	successRedirect: '/api/home',
-	  	failureRedirect: '/' 
-	  }));
+  /* Facebook login callback url */
+  router.get('/facebook/callback', passport.authenticate('facebook', {
+    successRedirect: '/api/success',
+    failureRedirect: '/'
+  }));
 
-	router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+  /* Handle Google login */
+  router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-	router.get('/google/callback', passport.authenticate('google', { 
-		successRedirect: '/api/home', 
-		failureRedirect: '/' 
-	}));
+  /* Google login callback url */
+  router.get('/google/callback', passport.authenticate('google', {
+    successRedirect: '/api/success',
+    failureRedirect: '/'
+  }));
 
-
-	/* Handle Logout */
-	router.get('/signout', function(req, res) {
-		req.logout();
-		res.send({status:'success'});
-	});
-	return router;
+  /* Handle Logout */
+  router.get('/signout', function(req, res) {
+    req.logout();
+    res.send({ status: 'success' });
+  });
+  return router;
 }
