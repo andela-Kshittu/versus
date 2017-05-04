@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const _ = require('lodash');
 
-var UserSchema = new mongoose.Schema({
+let UserSchema = new mongoose.Schema({
   facebook: {
     id: String
   },
@@ -37,11 +37,11 @@ var UserSchema = new mongoose.Schema({
 });
 
 UserSchema.methods.toJSON = function() {
-  var user = this;
-  var userObject = user.toObject();
+  let user = this;
+  let userObject = user.toObject();
   return _.pick(userObject, ['_id', 'email', 'firstname', 'lastname']);
 };
 
-var User = mongoose.model('User', UserSchema);
+let User = mongoose.model('User', UserSchema);
 
 module.exports = { User };

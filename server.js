@@ -51,7 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Configure Passport
-var initPassport = require('./passport/init');
+const initPassport = require('./passport/init');
 initPassport(passport);
 
 // Using the flash middleware provided by connect-flash to store messages in session
@@ -63,8 +63,8 @@ app.use('/api/auth', require('./routes/authentication')(passport));
 app.use('/api', require('./routes/api')(passport));
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+app.use((req, res, next) => {
+  let err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
@@ -72,7 +72,7 @@ app.use(function(req, res, next) {
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-  app.use(function(err, req, res, next) {
+  app.use((err, req, res, next) => {
     res.status(err.status || 500).send(err.message);
   });
 }

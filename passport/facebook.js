@@ -1,7 +1,7 @@
-var FacebookStrategy = require('passport-facebook').Strategy;
-var { User } = require('../models/user');
+const FacebookStrategy = require('passport-facebook').Strategy;
+const { User } = require('../models/user');
 
-module.exports = function(passport) {
+module.exports = (passport) => {
 
   passport.use(new FacebookStrategy({
       clientID: process.env.FB_APP_ID,
@@ -9,14 +9,14 @@ module.exports = function(passport) {
       callbackURL: process.env.FB_CALLBACK_URL,
       profileFields: ['id', 'first_name', 'last_name', 'email']
     },
-    function(accessToken, refreshToken, profile, done) {
-      User.findOne({ 'facebook.id': profile.id }, function(err, user) {
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ 'facebook.id': profile.id }, (err, user) => {
         if (!user) {
-          User.findOne({ 'email': profile._json.email }, function(err, userData) {
+          User.findOne({ 'email': profile._json.email }, (err, userData) => {
             if (!userData) {
               // if there is no user with that email
               // create the user
-              var newUser = new User();
+              let newUser = new User();
 
               newUser.email = profile._json.email;
               newUser.facebook = { id: profile._json.id };
@@ -24,7 +24,7 @@ module.exports = function(passport) {
               newUser.lastname = profile._json.last_name;
 
               // save the user
-              newUser.save(function(err) {
+              newUser.save((err) => {
                 if (err) {
                   console.log('Error in Saving user: ' + err);
                   throw err;
@@ -43,9 +43,8 @@ module.exports = function(passport) {
                 });
             }
           });
-        } else {
-          return done(null, user);
         }
+        return done(null, user);
       });
     }
   ));

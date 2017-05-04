@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-module.exports = function(passport) {
+module.exports = (passport) => {
 
   /* Handle Login POST */
   router.post('/login', passport.authenticate('login', {
@@ -36,7 +36,7 @@ module.exports = function(passport) {
   }));
 
   /* Handle Logout */
-  router.get('/signout', function(req, res) {
+  router.get('/signout', (req, res) => {
     req.logout();
     res.send({ status: 'success' });
   });
